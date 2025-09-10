@@ -12,12 +12,12 @@ function App() {
     setResponse("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/query", {
+      const res = await fetch("http://localhost:3000/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query, model }),
+        body: JSON.stringify({ model, prompt: query }),
       });
 
       if (!res.ok) {
@@ -25,7 +25,7 @@ function App() {
       }
 
       const data = await res.json();
-      setResponse(data.response || "No response received.");
+      setResponse(data.answer || "No response received.");
     } catch (err) {
       setResponse(`Error: ${err.message}`);
     } finally {
@@ -56,9 +56,9 @@ function App() {
             style={{ marginLeft: "0.5rem" }}
           >
             <option value="gpt-5-pro">GPT-5 Pro</option>
-            <option value="gpt-5-thinking">GPT-5 Thinking</option>
+            <option value="gpt-3.5-turbo">GPT-5</option>
             <option value="gemini-pro">Gemini Pro</option>
-            <option value="gemini-deep-think">Gemini Deep Think</option>
+            <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
           </select>
         </label>
         <br />
